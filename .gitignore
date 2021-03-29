@@ -58,3 +58,10 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+/EarlySamples/InitialProject/InitialProject/Library
+/EarlySamples/InitialProject/InitialProject/Logs
+/EarlySamples/InitialProject/InitialProject/obj/Debug
+/EarlySamples/InitialProject/InitialProject/Temp
+/EarlySamples/InitialProject/InitialProject/.vsconfig
+/EarlySamples/InitialProject/InitialProject/ProjectSettings/EditorSettings.asset
+/EarlySamples/InitialProject/InitialProject/ProjectSettings/ProjectVersion.txt
