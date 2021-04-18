@@ -18,6 +18,8 @@ namespace OhioState.RoadCrossing
         Rigidbody player;
         Vector3 movementVector;
         [SerializeField]private float impulseForce = 100;
+        [SerializeField] GameObject bodyToAnimate;
+        [SerializeField] Rigidbody bodyToMove;
         bool moveImplemented;
 
         //[SerializeField] EventStarTrekBeamDown spawner;
@@ -43,10 +45,13 @@ namespace OhioState.RoadCrossing
             
         }
 
+
         private void HandleMoveDownEvent(InputAction.CallbackContext obj)
         {
+            
             movementVector = new Vector3(0, 0, -1*impulseForce);
             moveImplemented = false;
+            //call change to movedownanimation (either raise an event 
         }
 
         private void HandleMoveUpEvent(InputAction.CallbackContext obj)

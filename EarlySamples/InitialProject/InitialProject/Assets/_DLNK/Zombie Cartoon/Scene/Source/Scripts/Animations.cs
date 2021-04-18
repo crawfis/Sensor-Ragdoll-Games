@@ -30,7 +30,7 @@ public class Animations : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKey (KeyCode.T))
+		/*if (Input.GetKey (KeyCode.T))
 		//(CharControl as MonoBehaviour).enabled = false;
 		TargetChar.GetComponent<Animation>().Play (Attack01Anim.name);
 
@@ -65,6 +65,6 @@ public class Animations : MonoBehaviour {
 			TargetChar.GetComponent<Animation>().Play (AppairAnim.name);
 		
 		
-		
+		*/
 	}
 }
