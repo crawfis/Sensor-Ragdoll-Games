@@ -8,7 +8,6 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 cameraOffset;
 
-    private float smoothFactor = 0.5f;
 
     // Start is called before the first frame update
     void Start()

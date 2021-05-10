@@ -31,19 +31,19 @@ namespace OhioState.RoadCrossing
         }
 
 
-        public static event EventHandler onQuit; // The event to signal Quit
-        public static event EventHandler onPause; // The event to signal Pause
-        public static event EventHandler onTakeScreenShot; // The event to signal screenshotting
-        public static event EventHandler onLeftImpact; // The event to signal player left collison with wall
-        public static event EventHandler onRightImpact; // The event to signal player right collision with wall
-        public static event EventHandler RunRequest;
-        public static event EventHandler WalkRequest;
-        public static event EventHandler BackwardsRequest;
-        public static event EventHandler StrafeLeftRequest;
-        public static event EventHandler GoalReached;
-        public static event EventHandler Restart;
-        public static event EventHandler Enable;
-        public static event EventHandler StopRequest;
+        public event EventHandler onQuit; // The event to signal Quit
+        public event EventHandler onPause; // The event to signal Pause
+        public event EventHandler onTakeScreenShot; // The event to signal screenshotting
+        public event EventHandler onLeftImpact; // The event to signal player left collison with wall
+        public event EventHandler onRightImpact; // The event to signal player right collision with wall
+        public event EventHandler RunRequest;
+        public event EventHandler WalkRequest;
+        public event EventHandler BackwardsRequest;
+        public event EventHandler StrafeLeftRequest;
+        public event EventHandler GoalReached;
+        public event EventHandler Restart;
+        public event EventHandler Enable;
+        public event EventHandler StopRequest;
 
 
         //Handle all action triggers by comparing name, and invoking the appropriate event launch function

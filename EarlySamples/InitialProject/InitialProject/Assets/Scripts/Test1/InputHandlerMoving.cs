@@ -18,8 +18,8 @@ namespace OhioState.RoadCrossing
         Rigidbody player;
         Vector3 movementVector;
         [SerializeField]private float impulseForce = 100;
-        [SerializeField] GameObject bodyToAnimate;
-        [SerializeField] Rigidbody bodyToMove;
+        [SerializeField]private GameObject bodyToAnimate;
+        [SerializeField]private Rigidbody bodyToMove;
         bool moveImplemented;
 
         //[SerializeField] EventStarTrekBeamDown spawner;

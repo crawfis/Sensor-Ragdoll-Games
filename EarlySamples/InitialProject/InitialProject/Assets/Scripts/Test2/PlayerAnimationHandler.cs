@@ -10,11 +10,12 @@ public class PlayerAnimationHandler : MonoBehaviour
     public AnimationClip idle;
     public AnimationClip walking;
     public AnimationClip backwards;
-    private Animation animation;
+    private Animation playerAnimation;
+    public Animator Animator;
 
     private void Awake()
     {
-        animation = bodyToAnimate.GetComponent<Animation>();
+        playerAnimation = bodyToAnimate.GetComponent<Animation>();
     }
     private void OnEnable()
     {
@@ -22,22 +23,24 @@ public class PlayerAnimationHandler : MonoBehaviour
         TestPlayerInputManager.moveUp += TestPlayerInputManagerRunForward; ;
         TestPlayerInputManager.moveRight += TestPlayerInputManagerRunForward;
         TestPlayerInputManager.moveLeft += TestPlayerInputManagerRunForward;
+        TestPlayerInputManager.StrafeRightRequest += TestPlayerInputManagerRunForward;
+        TestPlayerInputManager.StrafeLeftRequest += TestPlayerInputManagerRunForward;
 
         
     }
 
     private void TestPlayerInputManagerRunForward(object sender, EventArgs e)
     {
-        animation.clip = walking;
-        animation.Play();
-        animation.CrossFadeQueued(idle.name);
+        playerAnimation.clip = walking;
+        playerAnimation.Play();
+        playerAnimation.CrossFadeQueued(idle.name);
     }
 
     private void TestPlayerInputManagerRunBackwards(object sender, EventArgs e)
     {
-        animation.clip = backwards;
-        animation.Play();
-        animation.PlayQueued(idle.name);
+        playerAnimation.clip = backwards;
+        playerAnimation.Play();
+        playerAnimation.PlayQueued(idle.name);
     }
 
 

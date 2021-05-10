@@ -4,13 +4,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 
-public class UIInputHandler : MonoBehaviour
+public class UIInputHandler
 {
-    private static UIInputHandler instance; // the singleton instance of DummyTestGamemanager
-    public static UIInputHandler Instance { get { return instance; } } // The get property of the singleton
 
-    public InputActionAsset UIAsset;
-    InputActionMap UIActionMap;
+   
     InputAction quitAction;
     InputAction pauseAction;
     InputAction takeScreenShotAction;
@@ -24,19 +21,8 @@ public class UIInputHandler : MonoBehaviour
     public static event EventHandler Enable;
     public static event EventHandler StopRequest;
 
-    private void Awake()
+    public  UIInputHandler(InputActionMap UIActionMap)
     {
-        if (instance != null && instance != this) //eliminate all duplicates of DummyTestGameManager instance
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        UIActionMap = UIAsset.FindActionMap("UI");
         quitAction = UIActionMap.FindAction("Quit");
         pauseAction = UIActionMap.FindAction("Pause");
         takeScreenShotAction = UIActionMap.FindAction("Screenshot");

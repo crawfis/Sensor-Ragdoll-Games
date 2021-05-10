@@ -4,13 +4,11 @@ using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
 
-public class TestPlayerInputManager : MonoBehaviour
+public class TestPlayerInputManager
 {
-    private static TestPlayerInputManager instance; // the singleton instance of DummyTestGamemanager
-    public static TestPlayerInputManager Instance { get { return instance; } } // The get property of the singleton
+   
 
     public InputActionAsset testActions;
-    InputActionMap keyboardActionMap;
     InputAction jumpInputAction;
     InputAction moveLeftAction;
     InputAction moveRightAction;
@@ -31,24 +29,14 @@ public class TestPlayerInputManager : MonoBehaviour
     public static event EventHandler moveDown;
     public static event EventHandler jump;
 
-    private void Awake()
-    {
-        if (instance != null && instance != this) //eliminate all duplicates of DummyTestGameManager instance
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
 
-        keyboardActionMap = testActions.FindActionMap("Player");
-        moveLeftAction = keyboardActionMap.FindAction("MoveLeft");
-        moveRightAction = keyboardActionMap.FindAction("MoveRight");
-        moveUpAction = keyboardActionMap.FindAction("MoveUp");
-        moveDownAction = keyboardActionMap.FindAction("MoveDown");
-        jumpInputAction = keyboardActionMap.FindAction("Jump");
+    public  TestPlayerInputManager(InputActionMap playerMovementMap)
+    {
+        moveLeftAction = playerMovementMap.FindAction("MoveLeft");
+        moveRightAction = playerMovementMap.FindAction("MoveRight");
+        moveUpAction = playerMovementMap.FindAction("MoveUp");
+        moveDownAction = playerMovementMap.FindAction("MoveDown");
+        jumpInputAction = playerMovementMap.FindAction("Jump");
 
         jumpInputAction.performed += HandleJumpInputEvent;
         moveRightAction.performed += HandleMoveRightEvent;
@@ -60,48 +48,39 @@ public class TestPlayerInputManager : MonoBehaviour
 
     private void HandleMoveDownEvent(InputAction.CallbackContext obj)
     {
-        moveDown(this, EventArgs.Empty);
+        if (GlobalFixedConstants.Instance.grounded)
+        { moveDown(this, EventArgs.Empty); }
     }
 
     private void HandleMoveUpEvent(InputAction.CallbackContext obj)
     {
-        moveUp(this, EventArgs.Empty);
+        if (GlobalFixedConstants.Instance.grounded)
+        { moveUp(this, EventArgs.Empty); }
     }
 
     private void HandleMoveLeftEvent(InputAction.CallbackContext obj)
     {
-        moveLeft(this, EventArgs.Empty);
+        StrafeLeftRequest(this, EventArgs.Empty);
+       // moveLeft(this, EventArgs.Empty);
     }
 
     private void HandleMoveRightEvent(InputAction.CallbackContext obj)
     {
-        moveRight(this, EventArgs.Empty);
+        StrafeRightRequest(this, EventArgs.Empty);
+       // moveRight(this, EventArgs.Empty);
     }
 
     private void HandleJumpInputEvent(InputAction.CallbackContext obj)
     {
-        jump(this, EventArgs.Empty);
+        if(GlobalFixedConstants.Instance.grounded)
+        {
+            jump(this, EventArgs.Empty);
+        }
+        
     }
 
     //Handle all action triggers by comparing name, and invoking the appropriate event launch function
     
 
-    //The function to fire of the leftImpact request
-    private void OnLeftImpactRequest()
-    {
-        if (onLeftImpact != null)
-        {
-            onLeftImpact(this, EventArgs.Empty);
-        }
-    }
-
-    //The function to fire of the rightImpact request
-    private void OnRightImpactRequest()
-    {
-        if (onRightImpact != null)
-        {
-            onRightImpact(this, EventArgs.Empty);
-        }
-    }
 
 }

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class UIHandler : MonoBehaviour
 {
+    public Rigidbody rigidbodyToRestart;
 
     private void OnEnable()
     {
@@ -14,16 +15,35 @@ public class UIHandler : MonoBehaviour
         UIInputHandler.onTakeScreenShot += UIInputHandleronTakeScreenShotRequested;
     }
 
+    private void Awake()
+    {
+        GlobalFixedConstants.Instance.gamePaused = false;
+    }
+
     private void UIInputHandleronTakeScreenShotRequested(object sender, System.EventArgs e)
     {
     }
 
     private void UIInputHandlerRestartRequested(object sender, System.EventArgs e)
     {
+        rigidbodyToRestart.position = GlobalFixedConstants.Instance.startPosition;
+        //reset rotation.
     }
 
     private void UIInputHandlerPauseRequested(object sender, System.EventArgs e)
     {
+        if(GlobalFixedConstants.Instance.gamePaused)
+        {
+            Time.timeScale = 1;
+            GlobalFixedConstants.Instance.gamePaused = false;
+        }
+
+        else if(!GlobalFixedConstants.Instance.gamePaused)
+        {
+            Time.timeScale = 0;
+            GlobalFixedConstants.Instance.gamePaused = true;
+        }
+       
     }
 
     private void UIInputHandlerOnQuitRequested(object sender, System.EventArgs e)
