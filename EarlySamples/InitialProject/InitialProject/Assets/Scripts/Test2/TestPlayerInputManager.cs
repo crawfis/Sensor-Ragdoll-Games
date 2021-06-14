@@ -61,13 +61,11 @@ public class TestPlayerInputManager
     private void HandleMoveLeftEvent(InputAction.CallbackContext obj)
     {
         StrafeLeftRequest(this, EventArgs.Empty);
-       // moveLeft(this, EventArgs.Empty);
     }
 
     private void HandleMoveRightEvent(InputAction.CallbackContext obj)
     {
         StrafeRightRequest(this, EventArgs.Empty);
-       // moveRight(this, EventArgs.Empty);
     }
 
     private void HandleJumpInputEvent(InputAction.CallbackContext obj)
@@ -78,9 +76,5 @@ public class TestPlayerInputManager
         }
         
     }
-
-    //Handle all action triggers by comparing name, and invoking the appropriate event launch function
-    
-
 
 }
