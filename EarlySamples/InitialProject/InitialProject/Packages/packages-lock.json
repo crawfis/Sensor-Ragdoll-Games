@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.gamesthatmoveyou.audiomanager": {
+      "version": "https://github.com/crawfis/GTMY.Audio.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.addressables": "1.14.2"
+      },
+      "hash": "7ec7598609a394caf3f0d02aac0bda2434aafe06"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

@@ -12,8 +12,8 @@ namespace OhioState.RoadCrossing
         void Start()
         {
             DummyTestGameManager ImpactHandler = DummyTestGameManager.Instance; // get the singleton instance of the DummyTestGameManager
-            ImpactHandler.onRightImpact += ImpactHandlerOnRightImpact; // Subscribe to the event "OnrightImpact"
-            ImpactHandler.onLeftImpact += ImpactHandlerOnLeftImpact; // Subscribe to the event "OnleftImpact"
+            //ImpactHandler.onRightImpact += ImpactHandlerOnRightImpact; // Subscribe to the event "OnrightImpact"
+            //ImpactHandler.onLeftImpact += ImpactHandlerOnLeftImpact; // Subscribe to the event "OnleftImpact"
             player = GameObject.FindGameObjectWithTag("Player"); //the reference to player to add force on impact
         }
 

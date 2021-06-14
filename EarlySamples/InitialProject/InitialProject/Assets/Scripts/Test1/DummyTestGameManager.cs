@@ -16,6 +16,7 @@ namespace OhioState.RoadCrossing
 
         private void Awake()
         {
+
             if(instance != null && instance != this) //eliminate all duplicates of DummyTestGameManager instance
             {
                 Destroy(gameObject);
@@ -31,14 +32,18 @@ namespace OhioState.RoadCrossing
 
 
         public event EventHandler onQuit; // The event to signal Quit
-
         public event EventHandler onPause; // The event to signal Pause
-
         public event EventHandler onTakeScreenShot; // The event to signal screenshotting
-
         public event EventHandler onLeftImpact; // The event to signal player left collison with wall
-
         public event EventHandler onRightImpact; // The event to signal player right collision with wall
+        public event EventHandler RunRequest;
+        public event EventHandler WalkRequest;
+        public event EventHandler BackwardsRequest;
+        public event EventHandler StrafeLeftRequest;
+        public event EventHandler GoalReached;
+        public event EventHandler Restart;
+        public event EventHandler Enable;
+        public event EventHandler StopRequest;
 
 
         //Handle all action triggers by comparing name, and invoking the appropriate event launch function
