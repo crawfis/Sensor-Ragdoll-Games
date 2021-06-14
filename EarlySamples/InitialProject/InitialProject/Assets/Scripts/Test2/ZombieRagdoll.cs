@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour
+public class ZombieRagdoll : MonoBehaviour
 {
 
     PlayerState playerstate = new PlayerState();
@@ -17,21 +17,24 @@ public class Zombie : MonoBehaviour
     bool MovingUp;
     bool Ragdoll;
     bool InRagdoll;
+    bool ResetAfterJump;
     public ICharacterState state;
     private bool Grounded;
     private bool JumpGrounded;
 
     private void Awake()
     {
+        GlobalFixedConstants.Instance.grounded = true;
         TestPlayerInputManager.moveUp += ChangeStateForward;
         TestPlayerInputManager.moveDown += ChangeStateBackward;
         TestPlayerInputManager.StrafeRightRequest += ChangeStateRightStrafe;
         TestPlayerInputManager.StrafeLeftRequest += ChangeStateLeftStrafe;
         TestPlayerInputManager.jump += ChangeStateJump;
         MovementVectorPerState = new Vector3(0, 0, GlobalFixedConstants.WalkingForce);
-        state = new CharacterWalkingState(this);
+        //state = new CharacterWalkingState(this);
         Ragdoll = false;
         InRagdoll = false;
+        ResetAfterJump = false;
     }
 
     /*Jump call*/
@@ -42,7 +45,7 @@ public class Zombie : MonoBehaviour
             JumpPoint = ZombieRigidBody.position;
             MovingUp = true;
             PreviousState = state;
-            state = new CharacterJumpState(this, state);
+            //state = new CharacterJumpState(this, state);
             JumpGrounded = false;
             StartCoroutine(ChangeBackFromJump());
         }
@@ -64,6 +67,7 @@ public class Zombie : MonoBehaviour
     IEnumerator ChangeBackFromJump()
     {
         yield return new WaitUntil(DelegateForJumpLimit);
+        ResetAfterJump = true;
         state = PreviousState;
     }
     public void ChangeToMoveDown()
@@ -90,13 +94,13 @@ public class Zombie : MonoBehaviour
         ZombieRigidBody.position = RestartPosition;
         playerAnimation.clip = GlobalFixedConstants.Instance.Gettingup;
         playerAnimation.Play();
-        state = new CharacterIdleState(this);
+        //state = new CharacterIdleState(this);
         Invoke(nameof(ChangeToWalking), 3.0f);
         
     }
     public void ChangeToWalking()
     {
-        state = new CharacterWalkingState(this);
+        //state = new CharacterWalkingState(this);
         playerAnimation.clip = GlobalFixedConstants.Instance.ZombieWalking;
         playerAnimation.Play();
     }
@@ -106,7 +110,7 @@ public class Zombie : MonoBehaviour
     {
         if (!state.ReturnCurrentState().Equals("JUMPING"))
         {
-            state = new CharacterRightStrafeState(this);
+            //state = new CharacterRightStrafeState(this);
             playerAnimation.clip = GlobalFixedConstants.Instance.ZombieIdle;
             playerAnimation.Play();
         }
@@ -118,7 +122,7 @@ public class Zombie : MonoBehaviour
     {
         if (!state.ReturnCurrentState().Equals("JUMPING"))
         {
-            state = new CharacterLeftStrafeState(this);
+            //state = new CharacterLeftStrafeState(this);
             playerAnimation.clip = GlobalFixedConstants.Instance.ZombieIdle;
             playerAnimation.Play();
         }
@@ -129,14 +133,14 @@ public class Zombie : MonoBehaviour
     {
         if (state.ReturnCurrentState().Equals("WALKING") || state.ReturnCurrentState().Equals("RIGHTSTRAFE") || state.ReturnCurrentState().Equals("LEFTSTRAFE"))
         {
-            state = new CharacterIdleState(this);
+            //state = new CharacterIdleState(this);
             playerAnimation.clip = GlobalFixedConstants.Instance.ZombieIdle;
             playerAnimation.Play();
         }
 
         else if (state.ReturnCurrentState().Equals("RUNNING"))
         {
-            state = new CharacterWalkingState(this);
+            //state = new CharacterWalkingState(this);
             playerAnimation.clip = GlobalFixedConstants.Instance.ZombieWalking;
             playerAnimation.Play();
         }
@@ -148,14 +152,14 @@ public class Zombie : MonoBehaviour
     {
         if(state.ReturnCurrentState().Equals("IDLE") || state.ReturnCurrentState().Equals("RIGHTSTRAFE") || state.ReturnCurrentState().Equals("LEFTSTRAFE"))
         {
-            state = new CharacterWalkingState(this);
+            //state = new CharacterWalkingState(this);
             playerAnimation.clip = GlobalFixedConstants.Instance.ZombieWalking;
             playerAnimation.Play();
         }
 
         else if (state.ReturnCurrentState().Equals("WALKING"))
         {
-            state = new CharacterRunningState(this);
+            //state = new CharacterRunningState(this);
             playerAnimation.clip = GlobalFixedConstants.Instance.ZombieRunning;
             playerAnimation.Play();
         }
@@ -165,7 +169,7 @@ public class Zombie : MonoBehaviour
     {
         if(collider.gameObject.layer == 6)
         {
-            state = new CharacterIdleState(this);
+            //state = new CharacterIdleState(this);
             ZombieRigidBody.isKinematic = false;
             Ragdoll = true;
             ZombieCollider.isTrigger = false;
@@ -188,7 +192,12 @@ public class Zombie : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (ResetAfterJump)
+        {
+            //ZombieRigidBody.MovePosition(new Vector3(ZombieRigidBody.position.x, 0, ZombieRigidBody.position.z));
+            //ResetAfterJump = false;
+        }
+
         if(InRagdoll)
         {}
         else if(!Ragdoll)
@@ -198,9 +207,8 @@ public class Zombie : MonoBehaviour
         else if(Ragdoll)
         {
             Vector3 RestartPosition = new Vector3(0, 0, -97.2f);
-            //playerAnimation.Stop();
-            //playerAnimation.clip = GlobalFixedConstants.Instance.RagdollState;
-            //playerAnimation.Play();
+            playerAnimation.clip = GlobalFixedConstants.Instance.RagdollState;
+            playerAnimation.Play();
             ZombieRigidBody.useGravity = true;
             Ragdoll = false;
             InRagdoll = true;
