@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerState 
 {
-   public enum playerState { Idle,Walking,Running,Jumping};
+   public enum playerState { Idle,Walking,Running,Jumping,RightStrafe,LeftStrafe};
    private playerState player;
 
     public PlayerState()
@@ -32,6 +32,31 @@ public class PlayerState
         if (player != playerState.Jumping)
         {
             player = playerState.Jumping;
+            GlobalFixedConstants.Instance.grounded = false;
+        }
+    }
+
+    public void changeToLeftStrafe()
+    {
+        if (player != playerState.LeftStrafe)
+        {
+            player = playerState.LeftStrafe;
+        }
+    }
+
+    public void changeToRightStrafe()
+    {
+        if (player != playerState.RightStrafe)
+        {
+            player = playerState.RightStrafe;
+        }
+    }
+
+    public void changeToIdle()
+    {
+        if (player != playerState.Idle)
+        {
+            player = playerState.Idle;
         }
     }
 

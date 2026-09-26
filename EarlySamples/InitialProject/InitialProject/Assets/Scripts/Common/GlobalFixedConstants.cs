@@ -8,12 +8,21 @@ public class GlobalFixedConstants : MonoBehaviour
     public static GlobalFixedConstants Instance { get { return instance; } } // The get property of the singleton
 
     public const float impulseForce = 300;
-    public const float defaultForce = 7;
+    public const float WalkingForce = 0.2f;
+    public const float RunningForce = 0.5f;
+    public const float IdleForce = 0;
     public const float degreeToTurnLeft = -10;
     public const float degreeToTurnRight = 10;
     public Vector3 startPosition = new Vector3(0, 15, -97.2f);
     public bool gamePaused;
     public bool ground;
+
+    public AnimationClip ZombieIdle;
+    public AnimationClip ZombieWalking;
+    public AnimationClip ZombieRunning;
+    public AnimationClip RagdollState;
+    public AnimationClip Gettingup;
+
     public bool gamePause { get
         { return gamePaused; }
         set { gamePaused = value; } }

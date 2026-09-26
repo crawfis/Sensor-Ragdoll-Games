@@ -27,6 +27,9 @@ public class UIHandler : MonoBehaviour
     private void UIInputHandlerRestartRequested(object sender, System.EventArgs e)
     {
         rigidbodyToRestart.position = GlobalFixedConstants.Instance.startPosition;
+        rigidbodyToRestart.rotation = Quaternion.Euler(0, 0, 0);
+        rigidbodyToRestart.velocity = Vector3.zero;
+        rigidbodyToRestart.isKinematic = true;
         //reset rotation.
     }
 

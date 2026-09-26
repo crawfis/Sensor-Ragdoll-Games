@@ -11,7 +11,7 @@ public class initialize : MonoBehaviour
     [SerializeField] private string inputUIMapName = "UI";
     [SerializeField] private string inputPlayerMovementMapName = "Player";
     [SerializeField] private Rigidbody rigidbodyToMove;
-    DefaultMovement defaultMovement;
+    //DefaultMovement defaultMovement;
 
     private void Start()
     {
@@ -21,13 +21,8 @@ public class initialize : MonoBehaviour
         InputActionMap PlayerMovementMap = PlayerAsset.FindActionMap(inputPlayerMovementMapName);
         TestPlayerInputManager playerMovementInputHandler = new TestPlayerInputManager(PlayerMovementMap);
 
-        defaultMovement = new DefaultMovement(rigidbodyToMove);
 
     }
 
-    private void FixedUpdate()
-    {
-        defaultMovement.FixedUpdate();
-    }
 
 }
